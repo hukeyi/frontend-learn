@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+根据[React官方入门教程](https://react.docschina.org/tutorial/tutorial.html)完成的井字棋练习。
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
