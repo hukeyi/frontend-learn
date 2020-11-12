@@ -1,6 +1,19 @@
-# Getting Started with Create React App
+# React入门练习：井字棋
 
-根据[React官方入门教程](https://react.docschina.org/tutorial/tutorial.html)完成的井字棋练习。
+## info
+
+跟着[React官方入门教程](https://react.docschina.org/tutorial/tutorial.html)完成的井字棋练习。
+
+## to-do
+
+1. 在游戏历史记录列表显示每一步棋的坐标，格式为 (列号, 行号)。
+2. 在历史记录列表中加粗显示当前选择的项目。
+3. 使用两个循环来渲染出棋盘的格子，而不是在代码里写死（hardcode）。
+4. 添加一个可以升序或降序显示历史记录的按钮。
+5. 每当有人获胜时，高亮显示连成一线的 3 颗棋子。
+6. 当无人获胜时，显示一个平局的消息。
+
+# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

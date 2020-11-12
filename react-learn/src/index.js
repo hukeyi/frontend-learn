@@ -30,8 +30,6 @@ function Square(props){
 
 // 棋盘
 class Board extends React.Component {
-  
-
   // 渲染子组件
   renderSquare(i) {
     return <Square 
@@ -70,6 +68,7 @@ class Game extends React.Component {
     this.state = {
       history: [{
         squares: Array(9).fill(null),
+        cordinate: {col: null, row: null},
       }],
       xIsNext: true,
       stepNumber: 0,
@@ -93,9 +92,12 @@ class Game extends React.Component {
     }
 
     squares[i] = this.state.xIsNext ? 'X' : 'O';
+    const match_row = [1, 1, 1, 2, 2, 2, 3, 3, 3];
+    const match_col = [1, 2, 3, 1, 2, 3, 1, 2, 3];
     this.setState({
       history: history.concat([{
         squares: squares,
+        cordinate: {col: match_col[i], row: match_row[i]},
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
@@ -115,7 +117,10 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
-      const desc = move ? 'Go to move #' + move : 'Go to game start';
+      // console.log(step);
+      const {col, row} = step.cordinate;
+      const desc = move ? `Go to move #${move} | cordinate: (${col}, ${row})`
+       : 'Go to game start';
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
