@@ -1,0 +1,19 @@
+<view>
+    <!-- <text class="title">现在是 {{ now }}</text> -->
+    <!-- <text class="title">hello {{ name }}</text>
+    <button bind:tap="buttonHandler">点击</button> -->
+    <!-- <text class="title" wx:for="{{ items }}">
+        {{ index }}、{{ item }}
+    </text>
+    <input placeholder="输入新增事项" bind:input="inputhandler"/>
+    <button bind:tap="buttonHandler">确定</button> -->
+    <!-- <open-data type="userAvatarUrl"></open-data>
+    <open-data type="userNickName"></open-data>      -->
+    <!-- <text class="title">hello {{ name }}</text>
+    <button open-type="getUserInfo" bind:getuserinfo="buttonHandler">
+        授权获取用户个人信息
+    </button> -->
+    <text claa="title">这是首页</text>
+    <!-- <navigator url="../second/second">前往第二页</navigator> -->
+    <button bind:tap="buttonHandler">前往第二页</button>
+</view>
