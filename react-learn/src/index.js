@@ -30,55 +30,18 @@ function Square(props){
 
 // 棋盘
 class Board extends React.Component {
-  constructor(props){
-    super(props);//继承父类
-    // state对于每个组件来说是私有的，不能直接被其他组件获得
-    this.state = {
-      squares: Array(9).fill(null),
-      xIsNext: true,
-    }
-  }
-
-  // 处理点击事件的监听方法
-  handleClick(i){
-    // 为什么需要创建一个副本，而不是直接修改现有的数组？【不可变性】
-    /**
-     * 1. 简化复杂的功能：方便追溯并复用旧数据
-     * 2. 跟踪数据改变
-     * 3. 方便确定在React中何时重新渲染
-     */
-    const squares = this.state.squares.slice();
-
-    if (calculateWinner(squares) || squares[i]){
-      return;
-    }
-
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({
-      squares: squares,
-      xIsNext: !this.state.xIsNext,
-    });
-  }
+  
 
   // 渲染子组件
   renderSquare(i) {
     return <Square 
-    value={this.state.squares[i]}
-    onClick={() => this.handleClick(i)} />;
+    value={this.props.squares[i]}
+    onClick={() => this.props.onClick(i)} />;
   }
 
   render(){
-    const winner = calculateWinner(this.state.squares);
-    let status;
-    if (winner){
-      status = 'Winner: ' + winner;
-    }else{
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-    }
-
     return (
       <div>
-        <div className="status">{status}</div>
         <div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}
@@ -101,15 +64,83 @@ class Board extends React.Component {
 
 // 游戏类
 class Game extends React.Component {
+  constructor(props){
+    super(props);//继承父类
+    // state对于每个组件来说是私有的，不能直接被其他组件获得
+    this.state = {
+      history: [{
+        squares: Array(9).fill(null),
+      }],
+      xIsNext: true,
+      stepNumber: 0,
+    };
+  }
+
+  // 处理点击事件的监听方法
+  handleClick(i){
+    // 为什么需要创建一个副本，而不是直接修改现有的数组？【不可变性】
+    /**
+     * 1. 简化复杂的功能：方便追溯并复用旧数据：history
+     * 2. 跟踪数据改变 ：history
+     * 3. 方便确定在React中何时重新渲染
+     */
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = history[history.length - 1]; //最近一次历史
+    const squares = current.squares.slice();
+
+    if (calculateWinner(squares) || squares[i]){
+      return;
+    }
+
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+      history: history.concat([{
+        squares: squares,
+      }]),
+      stepNumber: history.length,
+      xIsNext: !this.state.xIsNext,
+    });
+  }
+
+  jumpTo(step){
+    this.setState({
+      stepNumber: step,
+      xIsNext: (step % 2) === 0,
+    });
+  }
+
   render() {
+    const history = this.state.history;
+    const current = history[this.state.stepNumber];
+    const winner = calculateWinner(current.squares);
+
+    const moves = history.map((step, move) => {
+      const desc = move ? 'Go to move #' + move : 'Go to game start';
+      return (
+        <li key={move}>
+          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+        </li>
+      );
+    });
+
+    let status;
+    if (winner){
+      status = 'Winner: ' + winner;
+    }else{
+      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    }
+
     return (
       <div className="game">
         <div className="game-board">
-          <Board/>
+          <Board 
+            squares={current.squares}
+            onClick={(i) => this.handleClick(i)}
+          />
         </div>
         <div className="game-info">
-          <div>{/* status */}</div>
-          <ol>{/* TODO */}</ol>
+          <div>{status}</div>
+          <ol>{moves}</ol>
         </div>
       </div>
     );
