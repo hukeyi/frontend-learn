@@ -69,6 +69,7 @@ class Game extends React.Component {
       xIsNext: true,
       stepNumber: 0,
       stepSelected: 0,
+      upOrder: true,
     };
   }
 
@@ -100,6 +101,16 @@ class Game extends React.Component {
       xIsNext: !this.state.xIsNext,
       stepSelected: history.length,
     });
+  }
+  
+  /**
+   * 改变历史记录显示顺序
+   * 点击一次取一次反
+   */
+  handleChangeOrder(){
+    this.setState({
+      upOrder: !this.state.upOrder,
+    })
   }
 
   jumpTo(step){
@@ -145,6 +156,9 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
+          <div>
+            <button onClick={() => this.handleChangeOrder()}>{this.state.upOrder ? 'Ascending' : 'Descending'}</button>
+          </div>
           <div>{status}</div>
           <ol>{moves}</ol>
         </div>
