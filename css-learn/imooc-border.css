@@ -1,0 +1,35 @@
+.c1 {
+	width: 400px;
+	height: 200px;
+	border: 1px solid red;
+}
+
+.c2 {
+	width: 400px;
+	height: 200px;
+	border: 30px solid transparent;
+	border-image: url(./img/test1.JPG) 30;
+}
+
+.c3 {
+	width: 400px;
+	height: 200px;
+	border-bottom: 30px solid red;
+	border-left: 30px solid transparent;
+	border-right: 30px solid transparent;
+}
+
+.c4 {
+	width: 60px;
+	height: 60px;
+	border: 30px solid transparent;
+	border-image: url(./img/border.png) 30 repeat;
+}
+
+.c5 {
+	width: 0px;
+	height: 200px;
+	border-bottom: 30px solid red;
+	border-left: 30px solid transparent;
+	border-right: 30px solid transparent;
+}

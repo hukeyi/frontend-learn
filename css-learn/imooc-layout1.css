@@ -1,0 +1,19 @@
+.triangle {
+	width: 0px;
+	height: 200px;
+	border-bottom: 30px solid red;
+	border-left: 30px solid transparent;
+	border-right: 30px solid transparent;
+}
+
+#td1 {
+	background-color: red;
+	width: 300px;
+	height: 300px;
+}
+
+#td2 {
+	background-color: yellow;
+	width: 300px;
+	height: 300px;
+}
